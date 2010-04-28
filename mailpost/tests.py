@@ -1,3 +1,9 @@
+"""
+Mailpost version 0.0.1 alpha
+(C) 2010 OTT Team
+
+"""
+
 import re
 import urllib
 import urllib2
@@ -8,7 +14,7 @@ from cStringIO import StringIO
 
 from mock import Mock, patch
 
-from imap import ImapClient, Message
+from mailpost.imap import ImapClient, Message
 from mailpost.handler import Handler, Mapper
 
 string_message = '''from:TESTworldserveradministrator@TESTgoogle.com;
