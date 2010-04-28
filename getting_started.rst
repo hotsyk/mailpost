@@ -18,6 +18,10 @@ Install
 Settings to be added to your Django settings::
 
     MAILPOST_CONFIG_FILE =  os.path.join(DIRNAME, 'config', 'mailpost.yaml')
+
+Settings to be added to your Django installed applications::
+
+    'mailpost',
      
      
 Settings

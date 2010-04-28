@@ -35,17 +35,50 @@ __all__ = ["fnmatch","fnmatchcase","translate"]
 _cache = {}
 
 def fnmatch(name, pat):
-    """
-    Match name and pattern
+    """Test whether FILENAME matches PATTERN.
+
+    Patterns are Unix shell style:
+
+    *       matches everything
+    ?       matches any single character
+    [seq]   matches any character in seq
+    [!seq]  matches any char not in seq
+
+    An initial period in FILENAME is not special.
+    Both FILENAME and PATTERN are first case-normalized
+    if the operating system requires it.
+    If you don't want this, use fnmatchcase(FILENAME, PATTERN).
     """
     import os
     name = os.path.normcase(name)
     pat = os.path.normcase(pat)
     return fnmatchcase(name, pat)
 
+def filter(names, pat):
+    """Return the subset of the list NAMES that match PAT"""
+    import os,posixpath
+    result=[]
+    pat=os.path.normcase(pat)
+    if not pat in _cache:
+        res = translate(pat)
+        _cache[pat] = re.compile(res)
+    match=_cache[pat].match
+    if os.path is posixpath:
+        # normcase on posix is NOP. Optimize it away from the loop.
+        for name in names:
+            if match(name):
+                result.append(name)
+    else:
+        for name in names:
+            if match(os.path.normcase(name)):
+                result.append(name)
+    return result
+
 def fnmatchcase(name, pat):
-    """
-    Same to fnmatch, but with case
+    """Test whether FILENAME matches PATTERN, including case.
+
+    This is a version of fnmatch() which doesn't case-normalize
+    its arguments.
     """
     if not pat in _cache:
         res = translate(pat)
@@ -53,8 +86,9 @@ def fnmatchcase(name, pat):
     return _cache[pat].match(name) is not None
 
 def translate(pat):
-    """
-    Translation of the pattern string to regex
+    """Translate a shell PATTERN to a regular expression.
+
+    There way to quote meta-characters.
     """
     i, n = 0, len(pat)
     res = ''

@@ -72,4 +72,3 @@ def test_fnmatch():
     mypattern = '\[AVAILABLE FOR TRANSLATION\]'
     mystring = '[AVAILABLE FOR TRANSLATION] A task in the WorldServer project'
     assert fnmatch.fnmatch(mystring, mypattern)
-        

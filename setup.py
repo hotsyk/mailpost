@@ -1,19 +1,16 @@
 from distutils.core import setup
-import os
 
-from mailpost import get_version
+version = __import__('mailpost').get_version()
+
 
 setup(name='mailpost',
-      version=get_version().replace(' ', '-'),
-      description='',
-      long_description='',
-      author='',
-      author_email='',
-      url='',
-      download_url='',
-      package_dir={'mailpost': 'mailpost'},
-      packages=[''],
-      package_data={'mailpost': ''},
+      version=version,
+      description='A package that maps incoming email to HTTP requests',
+      long_description='A package that maps incoming email to HTTP requests',
+      author='OTT team',
+      author_email='ott@odesk.com',
+      packages = ['mailpost', 'mailpost.management', 
+                  'mailpost.management.commands'],
       classifiers=['Development Status :: 1 - Alpha',
                    'Environment :: Web Environment',
                    'Framework :: Django',
