@@ -99,7 +99,7 @@ def translate(pat):
             res = res + '.*'
         elif c == '?':
             res = res + '.'
-        #fix to work with excaped string
+        #fix to work with escaped string
         elif c == '\\' and i < n:
             c = pat[i]
             i = i+1
@@ -124,4 +124,4 @@ def translate(pat):
                 res = '%s[%s]' % (res, stuff)            
         else:
             res = res + re.escape(c)
-    return res + '.*' + '\Z(?ms)'
+    return res + '\Z(?ms)'
