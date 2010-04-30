@@ -105,11 +105,11 @@ class TestMailPost(unittest.TestCase):
     
         self.message = Message(session=self.sessionmock, uid=1)
         
-        MSG_LIST=[self.message, self.message]
+        self.msg_list=[self.message, self.message]
     
         self.sample_rules = [
                 {
-                    'url': 'http://localhost:8000/mail_test/',
+                    'url': '/upload_email/',
                     'conditions': {
                         'subject':  ['*AVAILABLE FOR TRANSLATION*',],
                     },
@@ -117,7 +117,7 @@ class TestMailPost(unittest.TestCase):
                     'actions': ['mark_as_read'],
                 },
                 { #"Catch all" rule
-                    'url': 'http://localhost:8000/mail_test/',
+                    'url': '/upload_email/',
                 },
             ]
 
@@ -138,7 +138,3 @@ class TestMailPost(unittest.TestCase):
         self.assert_(self.sample_rules[0]['conditions']['subject'][0]\
                       in mapping[1]['conditions']['subject'], 
                       mapping[1]['conditions']['subject'])
-
-
-   
-   
