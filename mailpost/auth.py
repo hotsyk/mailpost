@@ -26,9 +26,7 @@ def get_handlers():
 def authenticate(auth_data, request):
     """
     Format for auth_data:
-    url: <url to login page> (otherwise it we will try to open requested page 
-    and catch redirect from it)
-    
+    url: <url to login form> 
     form:
       username (name of the field in POST): value
       passwd (name of the field in POST): value
@@ -48,13 +46,6 @@ def authenticate(auth_data, request):
     
     urllib2.install_opener(urlopener)
     #setup cookie
-    
-    
-    if not auth_url:
-        #get redirect url
-        f = urllib2.urlopen(request)
-        auth_url = f.url
-        f.close()
     
     f = urllib2.urlopen(auth_url)
     f.close()        
