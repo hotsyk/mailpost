@@ -13,7 +13,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASE_ENGINE = 'sqlite3'      
-DATABASE_NAME = '1.db'       
+DATABASE_NAME = DIRNAME+'/test.db'       
 DATABASE_USER = ''             
 DATABASE_PASSWORD = ''         
 DATABASE_HOST = ''             
@@ -50,9 +50,11 @@ TEMPLATE_DIRS = (
 
 INSTALLED_APPS = (
     'django.contrib.auth',
+    'django.contrib.admin',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
     'mailposttest.testapp',
     'mailpost',
 )
+LOGIN_REDIRECT_URL = '/admin/'

@@ -46,7 +46,7 @@ class TestServerThread(threading.Thread):
         """ Stop the server """
         self._stopped = True
         # Send an http request to wake the server
-        url = urllib.urlopen('http://%s:%d/fake/request/' % (self.address, self.port)) 
+        url = urllib.urlopen('http://%s:%d/login/' % (self.address, self.port)) 
         url.read()
         # Wait for server to finish
         self.join(5)

@@ -6,7 +6,15 @@ admin.autodiscover()
 urlpatterns = patterns('mailposttest.testapp.views',
     url(r'^upload_email/$', 'upload_email',
         name='upload_email'),
-    url(r'^accounts/login/$', 'login',
-        name='login'),
+    url(r'^admin/', include(admin.site.urls)),
         
 )
+
+def login(request):
+    from django.contrib.auth.views import login as auth_login
+    return auth_login(request, template_name='admin/login.html')
+    
+urlpatterns += patterns('',
+    url(r'^login/$', login, name='login',),
+    url(r'^accounts/login/$', login, name='login2',),
+)    

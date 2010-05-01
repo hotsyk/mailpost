@@ -28,10 +28,6 @@ def upload_email(request):
                               RequestContext(request, context))
 
 
-def login(request):
-        return render_to_response('login.html', 
-                              RequestContext(request, {}))    
-        
 
 
 

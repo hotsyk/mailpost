@@ -13,6 +13,7 @@ from poster.encode import multipart_encode, MultipartParam
 from poster.streaminghttp import register_openers
 
 from mailpost import fnmatch
+from mailpost import auth
 
 #TODO: Everything.
 
@@ -118,6 +119,8 @@ class Mapper(object):
             data += files
             datagen, headers = multipart_encode(data)
             request = urllib2.Request(url, datagen, headers)
+            if options.get('auth', None):
+                cj, urlopener = auth.authenticate(options['auth'], request)
             try:
                 result = urllib2.urlopen(request).read()
             except urllib2.URLError, e:

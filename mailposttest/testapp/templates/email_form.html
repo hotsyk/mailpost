@@ -1,7 +1,7 @@
 {% load i18n %}
 <h1>{{ status }}</h1>
-{% block content %}
-    <form action="." method="post">
+{% block content %} 
+    <form action="." method="post" enctype="multipart/form-data">
         <table>{{ form }}</table>
         <input type="submit" value="Upload" />
     </form>
