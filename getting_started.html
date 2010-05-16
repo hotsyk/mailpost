@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Getting started &mdash; Mailpost v0.0.1.alpha documentation</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.0.1.alpha',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Mailpost v0.0.1.alpha documentation" href="index.html" />
+    <link rel="prev" title="Indices and tables" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="index.html" title="Indices and tables"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Mailpost v0.0.1.alpha documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Getting started</a><ul>
+<li><a class="reference external" href="#install">Install</a></li>
+<li><a class="reference external" href="#id3">Settings</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="index.html"
+                                  title="previous chapter">Indices and tables</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/getting_started.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="getting-started">
+<span id="id1"></span><h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="install">
+<span id="id2"></span><h2>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
+<p id="settings">Settings to be added to your Django settings:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">MAILPOST_CONFIG_FILE</span> <span class="o">=</span>  <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="s">&#39;config&#39;</span><span class="p">,</span> <span class="s">&#39;mailpost.yaml&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Settings to be added to your Django installed applications:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="s">&#39;mailpost&#39;</span><span class="p">,</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>Settings<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>Example of config yaml file:</p>
+<div class="highlight-python"><pre>backend: 'imap'
+host: 'imap.gmail.com'
+port: null #If none is specified, default IMAP port will be used
+ssl: 'true'
+username: 'change_this@gmail.com'
+password: 'ChangeThis'
+mailboxes: ['INBOX'] #default
+query: 'all' #Options are 'all', 'unseen', 'seen', 'deleted', 'nondeleted'
+base_url: 'http://localhost:8000/' #Default: null
+
+#Note the difference between 'from'('to') and 'sender'('receiver') fields
+#The former contains full address, like 'Test Mname &lt;test@gmail.com&gt;'
+#The latter contains email only, like 'test@gmail.com'
+
+rules:
+   -   url       : 'mail_test/'
+       method    : 'post' #default
+       conditions: #Multiple conditions have effect of boolean 'and'
+               sender : ['*@gmail.com', '*@odesk.com'] #Multiple patterns have effect of boolean 'or'
+               subject: '*test*'
+       syntax    : 'glob' # Patterns syntax for params.
+                          #Possible values are 'glob' and 'regexp'. Default: 'glob'
+       raw       : false # Send unparsed message. Default: false
+       msg_params: ['from', 'to', 'sender', 'receiver', 'subject', 'body']
+                    # Which parsed parts of message to send in the request.
+                    #Has no effect if raw=true
+       add_params: { message_type: 'test' }
+                     #Additional params to send in request.
+                     #Will overwrite message params in case of identical keys.
+                     # Default: {}
+       send_files: true #Whether to send attachments. Default: true
+       actions   : ['mark_as_read','delete']
+                    # Additional processing actions. Default: [].
+                    #In future it may vary depending on backend</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="index.html" title="Indices and tables"
+             >previous</a> |</li>
+        <li><a href="index.html">Mailpost v0.0.1.alpha documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2010, OTT Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>
