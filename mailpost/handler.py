@@ -31,7 +31,7 @@ DEFAULT_RULE = {
     'raw': False,
     #Which message params to include in request
     'msg_params': ['from', 'sender', 'to', 'receiver', 'subject', 'body',
-                   'date'],
+                   'date', 'Message-ID'],
     #Additional request params
     'add_params': {},
     'send_files': True,

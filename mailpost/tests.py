@@ -84,6 +84,7 @@ class TestFnmatch(unittest.TestCase):
 string_message = '''from:TESTserveradministrator@TESTgoogle.com;
 to:TESTlillianc@TESTgoogle.com;
 subject:[AVAILABLE FOR TRANSLATION] A task in our server
+Message-ID:123
 project 'New project;
  Test - test2' is now available to review
 =====
@@ -138,3 +139,9 @@ class TestMailPost(unittest.TestCase):
         self.assert_(self.sample_rules[0]['conditions']['subject'][0]\
                       in mapping[1]['conditions']['subject'], 
                       mapping[1]['conditions']['subject'])
+        
+    def test_message_id(self, *args, **kwargs):
+       
+        mapper = Mapper(self.sample_rules, 'http://localhost:8000')
+        mapping = mapper.map(self.message)
+        assert 'Message-ID' in mapping[1]['msg_params'] 
