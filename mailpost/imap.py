@@ -210,8 +210,8 @@ class ImapClient(object):
 
 
 if __name__ == '__main__':
-    USERNAME = 'clientg.test@gmail.com'
-    PASSWORD = 'ClientGoogle'
+    USERNAME = 'test@gmail.com'
+    PASSWORD = 'TestTest'
     inbox = ImapClient('imap.gmail.com', USERNAME,
                        PASSWORD, ssl=True)
     print '---- LATEST 10 messages ----'
