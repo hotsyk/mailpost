@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Getting started &mdash; Mailpost v0.1.0.alpha documentation</title>
+    <title>How to &mdash; Mailpost v0.1.0.alpha documentation</title>
     <link rel="stylesheet" href="static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -20,8 +20,8 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
     <link rel="top" title="Mailpost v0.1.0.alpha documentation" href="index.html" />
-    <link rel="next" title="Full list of classes and methods" href="full_list.html" />
-    <link rel="prev" title="Indices and tables" href="index.html" /> 
+    <link rel="next" title="Testing Mailpost and Mailposttest application" href="mailposttest.html" />
+    <link rel="prev" title="Full list of classes and methods" href="full_list.html" /> 
   </head>
   <body>
     <div class="related">
@@ -31,10 +31,10 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="full_list.html" title="Full list of classes and methods"
+          <a href="mailposttest.html" title="Testing Mailpost and Mailposttest application"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Indices and tables"
+          <a href="full_list.html" title="Full list of classes and methods"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">Mailpost v0.1.0.alpha documentation</a> &raquo;</li> 
       </ul>
@@ -43,23 +43,21 @@
         <div class="sphinxsidebarwrapper">
             <h3><a href="index.html">Table Of Contents</a></h3>
             <ul>
-<li><a class="reference external" href="#">Getting started</a><ul>
-<li><a class="reference external" href="#requirements">Requirements</a></li>
-<li><a class="reference external" href="#install">Install</a></li>
-<li><a class="reference external" href="#settings">Settings</a></li>
+<li><a class="reference external" href="#">How to</a><ul>
+<li><a class="reference external" href="#example">Example</a></li>
 </ul>
 </li>
 </ul>
 
             <h4>Previous topic</h4>
-            <p class="topless"><a href="index.html"
-                                  title="previous chapter">Indices and tables</a></p>
-            <h4>Next topic</h4>
             <p class="topless"><a href="full_list.html"
-                                  title="next chapter">Full list of classes and methods</a></p>
+                                  title="previous chapter">Full list of classes and methods</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="mailposttest.html"
+                                  title="next chapter">Testing Mailpost and Mailposttest application</a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
-              <li><a href="sources/getting_started.txt"
+              <li><a href="sources/how_to.txt"
                      rel="nofollow">Show Source</a></li>
             </ul>
           <div id="searchbox" style="display: none">
@@ -83,32 +81,25 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="getting-started">
-<span id="id1"></span><h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="requirements">
-<span id="id2"></span><h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>Poster &gt;= 0.5 (<a class="reference external" href="http://pypi.python.org/pypi/poster/">http://pypi.python.org/pypi/poster/</a>)</li>
-<li>Django &gt;= 1.1 (<a class="reference external" href="http://djangoproject.com">http://djangoproject.com</a>)<ul>
-<li>With some modifications, Mailpost could be used with another Python web framework. If you need this, contact us and we will try to help.</li>
-</ul>
+  <div class="section" id="how-to">
+<span id="id1"></span><h1>How to<a class="headerlink" href="#how-to" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="example">
+<span id="id2"></span><h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Django form to receive email:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">EmailForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="n">sender</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">required</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">to</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">required</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">subject</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">255</span><span class="p">)</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">Textarea</span><span class="p">)</span>
+</pre></div>
+</div>
 </li>
-</ul>
+<li><p class="first">Job to handle mails:</p>
+<div class="highlight-python"><pre>python manage.py fetchmail</pre>
 </div>
-<div class="section" id="install">
-<span id="id3"></span><h2>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
-<p>Settings to be added to your Django settings:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">MAILPOST_CONFIG_FILE</span> <span class="o">=</span>  <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="s">&#39;config&#39;</span><span class="p">,</span> <span class="s">&#39;mailpost.yaml&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Settings to be added to your Django installed applications:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="s">&#39;mailpost&#39;</span><span class="p">,</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="settings">
-<span id="id4"></span><h2>Settings<a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h2>
-<p>Example of config yaml file:</p>
+</li>
+<li><p class="first">Mailpost config file example:</p>
 <div class="highlight-python"><pre>backend: 'imap'
 host: 'imap.gmail.com'
 port: null #If none is specified, default IMAP port will be used
@@ -144,6 +135,8 @@ rules:
                     # Additional processing actions. Default: [].
                     #In future it may vary depending on backend</pre>
 </div>
+</li>
+</ul>
 </div>
 </div>
 
@@ -160,10 +153,10 @@ rules:
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="full_list.html" title="Full list of classes and methods"
+          <a href="mailposttest.html" title="Testing Mailpost and Mailposttest application"
              >next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Indices and tables"
+          <a href="full_list.html" title="Full list of classes and methods"
              >previous</a> |</li>
         <li><a href="index.html">Mailpost v0.1.0.alpha documentation</a> &raquo;</li> 
       </ul>

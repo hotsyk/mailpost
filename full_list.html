@@ -1,0 +1,328 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Full list of classes and methods &mdash; Mailpost v0.1.0.alpha documentation</title>
+    <link rel="stylesheet" href="static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '#',
+        VERSION:     '0.1.0.alpha',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
+    <link rel="top" title="Mailpost v0.1.0.alpha documentation" href="index.html" />
+    <link rel="next" title="How to" href="how_to.html" />
+    <link rel="prev" title="Getting started" href="getting_started.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="how_to.html" title="How to"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="getting_started.html" title="Getting started"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Mailpost v0.1.0.alpha documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="#">Full list of classes and methods</a><ul>
+<li><a class="reference external" href="#exceptions">Exceptions</a></li>
+<li><a class="reference external" href="#auth-py">auth.py</a></li>
+<li><a class="reference external" href="#fnmatch-py">fnmatch.py</a><ul>
+<li><a class="reference external" href="#purpose-of-the-fork">Purpose of the fork</a></li>
+<li><a class="reference external" href="#original-descripition-of-fnmatch">Original descripition of fnmatch</a></li>
+<li><a class="reference external" href="#methods">Methods</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#handler-py">handler.py</a></li>
+<li><a class="reference external" href="#imap-py">imap.py</a></li>
+<li><a class="reference external" href="#tests-py">tests.py</a></li>
+<li><a class="reference external" href="#management-commands-fetchmail-py">management/commands/fetchmail.py</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="getting_started.html"
+                                  title="previous chapter">Getting started</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="how_to.html"
+                                  title="next chapter">How to</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="sources/full_list.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="full-list-of-classes-and-methods">
+<span id="full-list"></span><h1>Full list of classes and methods<a class="headerlink" href="#full-list-of-classes-and-methods" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="exceptions">
+<span id="id1"></span><h2>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>handler.py</li>
+</ul>
+<blockquote>
+<ul class="simple">
+<li>class ConfigurationError(Exception)</li>
+</ul>
+</blockquote>
+</div>
+<div class="section" id="auth-py">
+<span id="auth"></span><h2>auth.py<a class="headerlink" href="#auth-py" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>def get_handlers()</li>
+</ul>
+<blockquote>
+<ul class="simple">
+<li>Get handlers registered by the poster.streaminghttp.register_openers, as we are overriding them by adding 2 new handlers</li>
+</ul>
+</blockquote>
+<ul class="simple">
+<li>def authenticate(auth_data, request)</li>
+</ul>
+<blockquote>
+<ul>
+<li><p class="first">Format for auth_data:</p>
+<div class="highlight-python"><pre>url: &lt;url to login form&gt;
+form:
+  username (name of the field in POST): value
+  passwd (name of the field in POST): value</pre>
+</div>
+</li>
+</ul>
+</blockquote>
+</div>
+<div class="section" id="fnmatch-py">
+<span id="fnmatch"></span><h2>fnmatch.py<a class="headerlink" href="#fnmatch-py" title="Permalink to this headline">¶</a></h2>
+<p>Fork of original fnmatch</p>
+<div class="section" id="purpose-of-the-fork">
+<span id="purpose"></span><h3>Purpose of the fork<a class="headerlink" href="#purpose-of-the-fork" title="Permalink to this headline">¶</a></h3>
+<p>Original fnmatch has an issue while matching escaped strings and not match
+pattern in the string, just only complete match. To support in glob syntax
+same rules as we support in regex, we&#8217;ve decided to fork it and patch</p>
+</div>
+<div class="section" id="original-descripition-of-fnmatch">
+<span id="description"></span><h3>Original descripition of fnmatch<a class="headerlink" href="#original-descripition-of-fnmatch" title="Permalink to this headline">¶</a></h3>
+<p>Filename matching with shell patterns.</p>
+<p>fnmatch(FILENAME, PATTERN) matches according to the local convention.
+fnmatchcase(FILENAME, PATTERN) always takes case in account.</p>
+<p>The functions operate by translating the pattern into a regular
+expression.  They cache the compiled regular expressions for speed.</p>
+<p>The function translate(PATTERN) returns a regular expression
+corresponding to PATTERN.  (It does not compile it.)</p>
+</div>
+<div class="section" id="methods">
+<span id="id2"></span><h3>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>def fnmatch(name, pat)</li>
+</ul>
+<blockquote>
+<ul class="simple">
+<li>Test whether FILENAME matches PATTERN</li>
+</ul>
+</blockquote>
+<ul class="simple">
+<li>def filter(names, pat)</li>
+</ul>
+<blockquote>
+<ul class="simple">
+<li>Return the subset of the list NAMES that match PAT</li>
+</ul>
+</blockquote>
+<ul class="simple">
+<li>def fnmatchcase(name, pat)</li>
+</ul>
+<blockquote>
+<ul class="simple">
+<li>Test whether FILENAME matches PATTERN, including case.</li>
+</ul>
+</blockquote>
+<ul class="simple">
+<li>def translate(pat)</li>
+</ul>
+<blockquote>
+<ul class="simple">
+<li>Translate a shell PATTERN to a regular expression</li>
+<li>Patched to quote meta characters</li>
+</ul>
+</blockquote>
+</div>
+</div>
+<div class="section" id="handler-py">
+<span id="handler"></span><h2>handler.py<a class="headerlink" href="#handler-py" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>class Mapper(object)</li>
+</ul>
+<blockquote>
+<ul class="simple">
+<li>def __init__(self, mappings=None, base_url=None)</li>
+<li>def map(self, message)</li>
+<li>def process(self, inbox)</li>
+</ul>
+</blockquote>
+<ul class="simple">
+<li>class Handler(object)</li>
+</ul>
+<blockquote>
+<ul class="simple">
+<li>def __init__(self, config=None, config_file=None, fileformat=None)</li>
+<li>def load_backend(self)</li>
+<li>def process(self)</li>
+</ul>
+</blockquote>
+</div>
+<div class="section" id="imap-py">
+<span id="imap"></span><h2>imap.py<a class="headerlink" href="#imap-py" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>class Message(object)</li>
+</ul>
+<blockquote>
+<ul class="simple">
+<li>def __init__(self, session, uid)</li>
+<li>def _prepare(self)</li>
+<li>def __getitem__(self, name)</li>
+<li>def __contains__(self, name)</li>
+<li>def has_key(self, name)</li>
+<li>def get(self, name, failobj=None)</li>
+<li>def __str__(self)</li>
+<li>&#64;property def body(self)</li>
+<li>def add_flag(self, flag)</li>
+<li>def mark_as_read(self)</li>
+<li>def delete(self)</li>
+<li>def download(self)</li>
+</ul>
+</blockquote>
+<ul class="simple">
+<li>class MessageList(object)</li>
+</ul>
+<blockquote>
+<ul class="simple">
+<li>def __init__(self, session, query)</li>
+<li>def _get_uids(self)</li>
+<li>def __len__(self)</li>
+<li>def __iter__(self)</li>
+<li>def __getitem__(self, key)</li>
+<li>def get(self, uid)</li>
+</ul>
+</blockquote>
+<ul class="simple">
+<li>class ImapClient(object)</li>
+</ul>
+<blockquote>
+<ul class="simple">
+<li>def __init__(self, host, username, password, port=None, ssl=False)</li>
+<li>def connect(self)</li>
+<li>&#64;property def connection(self)</li>
+<li>def login(self, username, password)</li>
+<li>def select(self, mailbox=&#8217;INBOX&#8217;)</li>
+<li>def search(self, query)</li>
+<li>def all(self)</li>
+<li>def unseen(self)</li>
+<li>def nondeleted(self)</li>
+<li>def deleted(self)</li>
+<li>def close(self)</li>
+<li>def logout(self)</li>
+</ul>
+</blockquote>
+</div>
+<div class="section" id="tests-py">
+<span id="tests"></span><h2>tests.py<a class="headerlink" href="#tests-py" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>class TestFnmatch(unittest.TestCase)</li>
+</ul>
+<blockquote>
+<ul class="simple">
+<li>def check_match(self, filename, pattern, should_match=1)</li>
+<li>def check_translate(self, sample, pattern, should_match=1)</li>
+<li>def test_fnmatch</li>
+</ul>
+</blockquote>
+<ul class="simple">
+<li>class TestMailPost(unittest.TestCase)</li>
+</ul>
+<blockquote>
+<ul class="simple">
+<li>def test_mapper_current_workflow</li>
+<li>def test_mapper_desired_workflow</li>
+<li>def test_message_id</li>
+</ul>
+</blockquote>
+</div>
+<div class="section" id="management-commands-fetchmail-py">
+<span id="management"></span><h2>management/commands/fetchmail.py<a class="headerlink" href="#management-commands-fetchmail-py" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>class Command(BaseCommand)</li>
+</ul>
+<blockquote>
+<ul class="simple">
+<li>def handle</li>
+</ul>
+</blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="how_to.html" title="How to"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="getting_started.html" title="Getting started"
+             >previous</a> |</li>
+        <li><a href="index.html">Mailpost v0.1.0.alpha documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2010, oDesk, www.odesk.com.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+    </div>
+  </body>
+</html>
