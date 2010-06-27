@@ -24,7 +24,6 @@ def get_handlers():
     handlers = [StreamingHTTPHandler, StreamingHTTPRedirectHandler]
     if hasattr(httplib, "HTTPS"):
         handlers.append(StreamingHTTPSHandler)
-
     return handlers
 
 
