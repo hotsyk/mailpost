@@ -4,7 +4,9 @@ Mailpost version 0.1.0 alpha
 (C) 2010 oDesk www.odesk.com
 """
 
+
 VERSION = (0, 1, 0, 'alpha', 1)
+
 
 def get_version():
     version = '%s.%s' % (VERSION[0], VERSION[1])

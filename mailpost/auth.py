@@ -5,14 +5,17 @@ Mailpost version 0.1.0 alpha
 (C) 2010 oDesk www.oDesk.com
 """
 
-import httplib, urllib, urllib2
+import httplib
+import urllib
+import urllib2
 import cookielib
 from poster.streaminghttp import StreamingHTTPHandler,\
     StreamingHTTPRedirectHandler
-    
+
 if hasattr(httplib, "HTTPS"):
     from poster.streaminghttp import StreamingHTTPSHandler
-        
+
+
 def get_handlers():
     """
     Get handlers registered by the poster.streaminghttp.register_openers, as
@@ -24,10 +27,11 @@ def get_handlers():
 
     return handlers
 
+
 def authenticate(auth_data, request):
     """
     Format for auth_data:
-    url: <url to login form> 
+    url: <url to login form>
     form:
       username (name of the field in POST): value
       passwd (name of the field in POST): value
@@ -38,23 +42,24 @@ def authenticate(auth_data, request):
     data = {}
     for key in auth_data['form']:
         data[key] = auth_data['form'][key]
-   
+
     cj = cookielib.CookieJar()
     # build opener with HTTPCookieProcessor
     urlopener = urllib2.build_opener(urllib2.HTTPRedirectHandler,
                                      urllib2.HTTPCookieProcessor(cj),
                                      *handlers)
-    
+
     urllib2.install_opener(urlopener)
     #setup cookie
-    
+
     f = urllib2.urlopen(auth_url)
-    f.close()        
+    f.close()
 
     params = urllib.urlencode(data)
-    txheaders =  {'User-agent' : 'Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)'}
+    txheaders = \
+        {'User-agent': 'Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)'}
     req = urllib2.Request(auth_url, params, txheaders)
-    
+
     # perform login with params
     f = urllib2.urlopen(req)
 

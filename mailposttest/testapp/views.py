@@ -22,18 +22,13 @@ def upload_email(request):
         form = EmailForm(request.POST)
         if form.is_valid():
             context = {'status': 'ok'}
-            return render_to_response('email_form.html', 
+            return render_to_response('email_form.html',
                               RequestContext(request, context))
         context = {'status': 'error', 'form': form}
-        return render_to_response('email_form.html', 
+        return render_to_response('email_form.html',
                               RequestContext(request, context))
     else:
         form = EmailForm()
         context = {'form': form}
-        return render_to_response('email_form.html', 
+        return render_to_response('email_form.html',
                               RequestContext(request, context))
-
-
-
-
-

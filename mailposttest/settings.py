@@ -18,12 +18,12 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'sqlite3'      
-DATABASE_NAME = DIRNAME+'/test.db'       
-DATABASE_USER = ''             
-DATABASE_PASSWORD = ''         
-DATABASE_HOST = ''             
-DATABASE_PORT = ''             
+DATABASE_ENGINE = 'sqlite3'
+DATABASE_NAME = DIRNAME + '/test.db'
+DATABASE_USER = ''
+DATABASE_PASSWORD = ''
+DATABASE_HOST = ''
+DATABASE_PORT = ''
 
 TIME_ZONE = 'America/Chicago'
 

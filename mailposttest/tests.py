@@ -32,10 +32,11 @@ from mailposttest.servertest import *
 data = {'sender': 'sender',
           'subject': 'subject',
           'to': 'to',
-          'body': 'body'}  
+          'body': 'body'}
+
 
 class TestMailPostAuthentication(TestMailPost):
-    
+
     def __init__(self, *args, **kwargs):
         super(TestMailPostAuthentication, self).__init__(*args, **kwargs)
         for user in User.objects.all():
@@ -54,9 +55,9 @@ class TestMailPostAuthentication(TestMailPost):
                               'query': 'all',
                               'base_url': 'http://localhost:8000/',
                               'rules': self.sample_rules}
-        
+
     def test_authentication_on_form(self):
-      
+
         client = Client()
         response = client.post('/upload_email/', data)
         assert not 'ok' in response.content, response.content
@@ -76,18 +77,17 @@ class TestMailPostAuthentication(TestMailPost):
         server.start()
         results = []
         try:
-            mapper = Mapper(self.sample_rules, 
+            mapper = Mapper(self.sample_rules,
                         'http://127.0.0.1:8082')
             for url, result in mapper.process(self.msg_list):
                 results.append([url, result])
         except Exception, e:
             server.stop()
-            raise e  
+            raise e
         server.stop()
         assert  ('login' in results[0][1]), results[0][1]
         assert not ('ok' in results[0][1]), results[0][1]
-        
-        
+
     def test_mailpost_with_auth(self):
         """
         auth:
@@ -95,25 +95,24 @@ class TestMailPostAuthentication(TestMailPost):
         form: (all fields should be exact as the fields in the login form)
             username: 'john'
             password: 'pass'
-           this_is_the_login_form :'1'    
+           this_is_the_login_form :'1'
         """
-        self.sample_rules[0]['auth'] = {'url': 
-                                        'http://127.0.0.1:8082/login/',
-                                        'form': {'username': 'john', 
-                                                 'password': 'pass',
-                                                 'this_is_the_login_form' :'1'}}
+        self.sample_rules[0]['auth'] = {'url':
+                                    'http://127.0.0.1:8082/login/',
+                                    'form': {'username': 'john',
+                                             'password': 'pass',
+                                             'this_is_the_login_form': '1'}}
         server = TestServerThread("127.0.0.1", 8082)
         server.start()
         results = []
         try:
-            mapper = Mapper(self.sample_rules, 
+            mapper = Mapper(self.sample_rules,
                         'http://127.0.0.1:8082')
             for url, result in mapper.process(self.msg_list):
                 results.append([url, result])
         except Exception, e:
             server.stop()
-            raise e  
+            raise e
         server.stop()
         assert not ('login' in results[0][1]), results[0][1]
         assert ('ok' in results[0][1]), results[0][1]
-   

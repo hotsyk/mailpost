@@ -6,17 +6,17 @@ Mailpost version 0.1.0 alpha
 
 """
 fnmatch.py - fork of original fnmatch
-==================
+=====================================
 .. _purpose:
 Purpose of the fork
 -----------------
 Original fnmatch has an issue while matching escaped strings and not match
-pattern in the string, just only complete match. To support in glob syntax 
+pattern in the string, just only complete match. To support in glob syntax
 same rules as we support in regex, we've decided to fork it and patch
 
 .. _description:
-Original descripition of fnmatch 
------------------
+Original descripition of fnmatch
+--------------------------------
 Filename matching with shell patterns.
 
 fnmatch(FILENAME, PATTERN) matches according to the local convention.
@@ -31,9 +31,10 @@ corresponding to PATTERN.  (It does not compile it.)
 
 import re
 
-__all__ = ["fnmatch","fnmatchcase","translate"]
+__all__ = ["fnmatch", "fnmatchcase", "translate"]
 
 _cache = {}
+
 
 def fnmatch(name, pat):
     """Test whether FILENAME matches PATTERN.
@@ -55,15 +56,17 @@ def fnmatch(name, pat):
     pat = os.path.normcase(pat)
     return fnmatchcase(name, pat)
 
+
 def filter(names, pat):
     """Return the subset of the list NAMES that match PAT"""
-    import os,posixpath
-    result=[]
-    pat=os.path.normcase(pat)
+    import os
+    import posixpath
+    result = []
+    pat = os.path.normcase(pat)
     if not pat in _cache:
         res = translate(pat)
         _cache[pat] = re.compile(res)
-    match=_cache[pat].match
+    match = _cache[pat].match
     if os.path is posixpath:
         # normcase on posix is NOP. Optimize it away from the loop.
         for name in names:
@@ -74,6 +77,7 @@ def filter(names, pat):
             if match(os.path.normcase(name)):
                 result.append(name)
     return result
+
 
 def fnmatchcase(name, pat):
     """Test whether FILENAME matches PATTERN, including case.
@@ -86,6 +90,7 @@ def fnmatchcase(name, pat):
         _cache[pat] = re.compile(res)
     return _cache[pat].match(name) is not None
 
+
 def translate(pat):
     """Translate a shell PATTERN to a regular expression.
 
@@ -95,7 +100,7 @@ def translate(pat):
     res = ''
     while i < n:
         c = pat[i]
-        i = i+1
+        i = i + 1
         if c == '*':
             res = res + '.*'
         elif c == '?':
@@ -103,26 +108,26 @@ def translate(pat):
         #fix to work with escaped string
         elif c == '\\' and i < n:
             c = pat[i]
-            i = i+1
+            i = i + 1
             res = res + re.escape(c)
         elif c == '[':
             j = i
             if j < n and pat[j] == '!':
-                j = j+1
+                j = j + 1
             if j < n and pat[j] == ']':
-                j = j+1
+                j = j + 1
             while j < n and pat[j] != ']':
-                j = j+1
+                j = j + 1
             if j >= n:
                 res = res + '\\['
             else:
-                stuff = pat[i:j].replace('\\','\\\\')
-                i = j+1
+                stuff = pat[i:j].replace('\\', '\\\\')
+                i = j + 1
                 if stuff[0] == '!':
                     stuff = '^' + stuff[1:]
                 elif stuff[0] == '^':
                     stuff = '\\' + stuff
-                res = '%s[%s]' % (res, stuff)            
+                res = '%s[%s]' % (res, stuff)
         else:
             res = res + re.escape(c)
     return res + '\Z(?ms)'

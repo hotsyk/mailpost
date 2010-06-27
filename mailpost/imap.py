@@ -20,14 +20,16 @@ import re
 #TODO: Lot's of stuff
 # Most important
 # 1. Dates!!
-# 2. Download only headers of a message until body or attachments are 
+# 2. Download only headers of a message until body or attachments are
 # requested
 # 3. Encodings support
 
-SENDER_EXPR = re.compile(r'[\w\.]+@[\w\.-]+') #Doesn't care for email validity much
+SENDER_EXPR = re.compile(r'[\w\.]+@[\w\.-]+')
+#Doesn't care for email validity much
+
 
 class Message(object):
-    
+
     def __init__(self, session, uid):
         self.session = session
         self.uid = uid
@@ -54,8 +56,8 @@ class Message(object):
             filename = part.get_filename()
             ctype = part.get_content_type()
             if filename:
-                self.attachments.append((filename, ctype, 
-                                         StringIO(part.get_payload(decode=True))))
+                self.attachments.append((filename, ctype,
+                                    StringIO(part.get_payload(decode=True))))
             else:
                 if ctype == 'text/plain':
                     self.text_bodies.append(part.get_payload())
@@ -70,10 +72,10 @@ class Message(object):
 
     def has_key(self, name):
         return self._msg.has_key(name)
-    
+
     def get(self, name, failobj=None):
         return self._msg.get(name, failobj)
-    
+
     def __str__(self):
         headers = ("From   : %(from)s\n-----\nTo     : %(to)s\n" +
         "-----\nSubject: %(subject)s\n") % self._msg
@@ -93,10 +95,9 @@ class Message(object):
         self.add_flag(r'\Deleted')
 
     def download(self):
-        #TODO: Ideally we shouldn't download the whole thing in order to parse 
-        #headers. 
+        #TODO: Ideally we shouldn't download the whole thing in order to parse
+        #headers.
         pass
-
 
 
 class MessageList(object):
@@ -157,14 +158,14 @@ class ImapClient(object):
 
     def connect(self):
         if self.ssl:
-            default_port = 993 
+            default_port = 993
             cls = imaplib.IMAP4_SSL
         else:
-            default_port = 143 
+            default_port = 143
             cls = imaplib.IMAP4
         port = self.port or default_port
         self._connection = cls(self.host, port)
-    
+
     @property
     def connection(self):
         if not self._connection:
@@ -172,7 +173,7 @@ class ImapClient(object):
         return self._connection
 
     def login(self, username, password):
-        self.connection.login(username,password)
+        self.connection.login(username, password)
 
     def select(self, mailbox='INBOX'):
         if not self.logged_in: #TODO: Maybe general 'state' would be better
@@ -210,9 +211,9 @@ class ImapClient(object):
 
 if __name__ == '__main__':
     USERNAME = 'clientg.test@gmail.com'
-    PASSWORD = 'ClientGoogle' 
-    inbox = ImapClient('imap.gmail.com', USERNAME, 
-                       PASSWORD, ssl=True) 
+    PASSWORD = 'ClientGoogle'
+    inbox = ImapClient('imap.gmail.com', USERNAME,
+                       PASSWORD, ssl=True)
     print '---- LATEST 10 messages ----'
     for message in inbox.nondeleted()[-10:]:
         print message

@@ -14,21 +14,27 @@ import time
 import threading
 import urllib
 
-from django.core.servers import basehttp 
+from django.core.servers import basehttp
 from django.core.servers.basehttp import WSGIServer, WSGIRequestHandler
-from django.core.handlers.wsgi import WSGIHandler 
+from django.core.handlers.wsgi import WSGIHandler
+
 
 class RandomWaitMixin(object):
+
     def process_request(self, *args, **kwargs):
-        time.sleep(random.random()/3)
+        time.sleep(random.random() / 3)
         return super(RandomWaitMixin, self).process_request(*args, **kwargs)
 
+
 class ThreadedServer(RandomWaitMixin, SocketServer.ThreadingMixIn, WSGIServer):
+
     def __init__(self, server_address, RequestHandlerClass=None):
-         BaseHTTPServer.HTTPServer.__init__(self, server_address, 
+        BaseHTTPServer.HTTPServer.__init__(self, server_address,
                                             RequestHandlerClass)
 
+
 class TestServerThread(threading.Thread):
+
     def __init__(self, address, port):
         self.address = address
         self.port = port
@@ -48,7 +54,7 @@ class TestServerThread(threading.Thread):
         """ Stop the server """
         self._stopped = True
         # Send an http request to wake the server
-        url = urllib.urlopen('http://%s:%d/login/' % (self.address, self.port)) 
+        url = urllib.urlopen('http://%s:%d/login/' % (self.address, self.port))
         url.read()
         # Wait for server to finish
         self.join(5)
@@ -56,7 +62,8 @@ class TestServerThread(threading.Thread):
             raise self._error
 
     def run(self):
-        """ Sets up test server and database and loops over handling http requests. """
+        """Sets up test server and database and loops over
+        handling http requests. """
         try:
             handler = basehttp.AdminMediaHandler(WSGIHandler())
             server_address = (self.address, self.port)
@@ -69,4 +76,4 @@ class TestServerThread(threading.Thread):
             self._started.set()
        # Loop until we get a stop event.
         while not self._stopped:
-            httpd.handle_request()           
+            httpd.handle_request()

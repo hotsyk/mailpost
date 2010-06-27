@@ -10,6 +10,7 @@ from django.conf import settings
 
 from mailpost.handler import Handler
 
+
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
@@ -25,7 +26,7 @@ class Command(BaseCommand):
 
         handler = Handler(config_file=settings.MAILPOST_CONFIG_FILE)
 
-        f = open(settings.LOCK_FILENAME,'w')
+        f = open(settings.LOCK_FILENAME, 'w')
         f.close()
         try:
             for url, result in handler.process():
