@@ -1,8 +1,9 @@
 """
 A package that maps incoming email to HTTP requests
-Mailpost version 0.0.1 alpha
-(C) 2010 OTT Team
+Mailpost version 0.1.0 alpha
+(C) 2010 oDesk www.oDesk.com
 """
+
 
 import imaplib
 import email
@@ -11,8 +12,8 @@ import re
 
 #WARNING: This module is at very early stage of development
 
-#Simplicity and ease of use of the API were chosen over techical correctness
-#and perfrormance.
+#Simplicity and ease of use of the API were chosen over technical correctness
+#and performance.
 #The goal is to provide an API that is closer to user's perspective than to
 #formal standards
 
@@ -173,7 +174,7 @@ class ImapClient(object):
     def login(self, username, password):
         self.connection.login(username,password)
 
-    def select(self,mailbox='INBOX'):
+    def select(self, mailbox='INBOX'):
         if not self.logged_in: #TODO: Maybe general 'state' would be better
             self.login(self.username, self.password)
         if self.mailbox:

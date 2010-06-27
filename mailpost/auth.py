@@ -1,9 +1,10 @@
 """
 Authenticate
 A package that maps incoming email to HTTP requests
-Mailpost version 0.0.1 alpha
-(C) 2010 OTT Team
+Mailpost version 0.1.0 alpha
+(C) 2010 oDesk www.oDesk.com
 """
+
 import httplib, urllib, urllib2
 import cookielib
 from poster.streaminghttp import StreamingHTTPHandler,\
@@ -14,7 +15,7 @@ if hasattr(httplib, "HTTPS"):
         
 def get_handlers():
     """
-    get handlers registered by the poster.streaminghttp.register_openers, as
+    Get handlers registered by the poster.streaminghttp.register_openers, as
     we are overriding them by adding 2 new handlers
     """
     handlers = [StreamingHTTPHandler, StreamingHTTPRedirectHandler]

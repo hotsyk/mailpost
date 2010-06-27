@@ -87,3 +87,25 @@ doctest:
 	$(SPHINXBUILD) -b doctest $(ALLSPHINXOPTS) $(BUILDDIR)/doctest
 	@echo "Testing of doctests in the sources finished, look at the " \
 	      "results in $(BUILDDIR)/doctest/output.txt."
+
+	      
+project=mailpost
+TMPDIR=/tmp
+docs_dir=$(TMPDIR)/$(project)-docs
+
+ghdocs:
+	rm -rf $(docs_dir)
+	$(MAKE) html
+	cp -r docs/html $(docs_dir)
+	mv $(docs_dir)/_static $(docs_dir)/static
+	mv $(docs_dir)/_sources $(docs_dir)/sources
+	perl -pi -e "s/_sources/sources/g;" $(docs_dir)/*.html
+	perl -pi -e "s/_static/static/g;" $(docs_dir)/*.html
+	rm -rf docs
+	git checkout gh-pages
+	-rm -r sources static
+	cp -rf $(docs_dir)/* .
+	git add .
+	git commit -a -m 'Updates $(project) documentation.'
+	git checkout master
+	rm -rf $(docs_dir)		      

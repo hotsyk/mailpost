@@ -1,7 +1,7 @@
 """
 A package that maps incoming email to HTTP requests
-Mailpost version 0.0.1 alpha
-(C) 2010 OTT Team
+Mailpost version 0.1.0 alpha
+(C) 2010 oDesk www.oDesk.com
 """
 
 """
@@ -28,6 +28,7 @@ expression.  They cache the compiled regular expressions for speed.
 The function translate(PATTERN) returns a regular expression
 corresponding to PATTERN.  (It does not compile it.)
 """
+
 import re
 
 __all__ = ["fnmatch","fnmatchcase","translate"]

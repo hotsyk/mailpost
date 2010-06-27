@@ -1,8 +1,9 @@
 """
-Mailpost version 0.0.1 alpha
-(C) 2010 OTT Team
-
+A package that maps incoming email to HTTP requests
+Mailpost version 0.1.0 alpha
+(C) 2010 oDesk www.oDesk.com
 """
+
 
 import re
 import urllib
@@ -81,8 +82,8 @@ class TestFnmatch(unittest.TestCase):
         check('\*\*', '\*\*')
         check('\*\[[*]', '\*[*]', 0)
 
-string_message = '''from:TESTserveradministrator@TESTgoogle.com;
-to:TESTlillianc@TESTgoogle.com;
+string_message = '''from:TESTserveradministrator@gmail.com;
+to:TESTlillianc@gmail.com;
 subject:[AVAILABLE FOR TRANSLATION] A task in our server
 Message-ID:123
 project 'New project;

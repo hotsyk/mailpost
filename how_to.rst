@@ -1,43 +1,30 @@
-.. _getting_started:
+.. _how_to:
 
 
 ***************
-Getting started
+How to
 ***************
 
 .. 
+.. _example:
 
-.. _requirements:
+Example
+---------------------------------------
 
-Requirements
------------------
+* Django form to receive email::
 
-* Poster >= 0.5 (http://pypi.python.org/pypi/poster/)
-* Django >= 1.1 (http://djangoproject.com)
- 
-  * With some modifications, Mailpost could be used with another Python web framework. If you need this, contact us and we will try to help.
-    
-.. _install:
+	class EmailForm(forms.Form):
+	    sender = forms.CharField(required=False)
+	    to = forms.CharField(required=False)
+	    subject = forms.CharField(max_length=255)
+	    body = forms.CharField(widget=forms.Textarea)
+	    
+* Job to handle mails::
 
-Install
------------------
+	python manage.py fetchmail
+	
+* Mailpost config file example::
 
-Settings to be added to your Django settings::
-
-    MAILPOST_CONFIG_FILE =  os.path.join(DIRNAME, 'config', 'mailpost.yaml')
-
-Settings to be added to your Django installed applications::
-
-    'mailpost',
-     
-   
-.. _settings:
-     
-Settings
----------------------
-
-Example of config yaml file::
-         
     backend: 'imap'
     host: 'imap.gmail.com'
     port: null #If none is specified, default IMAP port will be used
@@ -71,6 +58,4 @@ Example of config yaml file::
            send_files: true #Whether to send attachments. Default: true
            actions   : ['mark_as_read','delete'] 
                         # Additional processing actions. Default: []. 
-                        #In future it may vary depending on backend
-
-         
+                        #In future it may vary depending on backend		    

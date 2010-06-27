@@ -6,6 +6,10 @@ A package that maps incoming email to HTTP requests
    :maxdepth: 2
 
    getting_started.rst
+   full_list.rst
+   how_to.rst  
+   changelog.rst
+   license.rst
 
 
 Indices and tables
