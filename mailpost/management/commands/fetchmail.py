@@ -1,6 +1,7 @@
 import os
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
+from django.core.mail import mail_admins
 
 from mailpost.handler import Handler
 
@@ -15,6 +16,11 @@ class Command(BaseCommand):
             print "If you believe this is a mistake," + \
                   " please delete '%s' file manually" % \
                   os.path.normpath(settings.LOCK_FILENAME)
+            mail_admins('MAILPOST:Lock file found! Cannot run another process',\
+                        "If you believe this is a mistake," + \
+                        " please delete '%s' file manually" % \
+                        os.path.normpath(settings.LOCK_FILENAME),
+                        fail_silently=True)
             return False
 
         handler = Handler(config_file=settings.MAILPOST_CONFIG_FILE)
