@@ -1,3 +1,9 @@
+"""
+A package that maps incoming email to HTTP requests
+Mailpost version 0.1
+(C) 2010 oDesk www.oDesk.com
+"""
+
 from distutils.core import setup
 
 version = __import__('mailpost').get_version()
@@ -11,7 +17,7 @@ setup(name='mailpost',
       author_email='developers@odesk.com',
       packages = ['mailpost', 'mailpost.management', 
                   'mailpost.management.commands'],
-      classifiers=['Development Status :: 1 - Alpha',
+      classifiers=['Development Status :: 3 - Alpha',
                    'Environment :: Web Environment',
                    'Framework :: Django',
                    'Intended Audience :: Developers',
