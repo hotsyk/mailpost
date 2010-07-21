@@ -5,7 +5,6 @@ Mailpost version 0.1
 """
 
 
-
 import imaplib
 import email
 from cStringIO import StringIO

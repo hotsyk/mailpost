@@ -9,12 +9,16 @@ A package that maps incoming email to HTTP requests
    full_list.rst
    how_to.rst  
    changelog.rst
+   roadmap.rst
    license.rst
 
+------------
+URLS
+------------
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+ * Git repo: http://github.com/odesk/python-mailpost
+ * Documentation: http://odesk.github.com/python-mailpost/
+ * Pypi page:
+ * Issues: http://github.com/odesk/python-mailpost/issues
+ * Facebook group:
+ * Mailing list:

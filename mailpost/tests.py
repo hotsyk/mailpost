@@ -5,7 +5,6 @@ Mailpost version 0.1
 """
 
 
-
 import re
 import urllib
 import urllib2

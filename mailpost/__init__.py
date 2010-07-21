@@ -5,7 +5,6 @@ Mailpost version 0.1
 """
 
 
-
 VERSION = (0, 1, 0, 'final', 0)
 
 
