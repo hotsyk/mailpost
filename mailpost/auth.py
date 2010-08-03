@@ -27,7 +27,7 @@ def get_handlers():
     return handlers
 
 
-def authenticate(auth_data, request):
+def authenticate(auth_data, request, base_url=None):
     """
     Format for auth_data:
     url: <url to login form>
@@ -37,7 +37,9 @@ def authenticate(auth_data, request):
     """
     handlers = get_handlers()
     auth_url = auth_data.get('url', None)
-
+    if base_url and not auth_url.startswith('http'):
+        auth_url = base_url + auth_url
+        
     data = {}
     for key in auth_data['form']:
         data[key] = auth_data['form'][key]
