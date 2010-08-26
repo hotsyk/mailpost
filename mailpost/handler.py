@@ -12,6 +12,8 @@ from imap import ImapClient
 from poster.encode import multipart_encode, MultipartParam
 from poster.streaminghttp import register_openers
 
+from django.core.mail import mail_admins
+
 from mailpost import fnmatch
 from mailpost import auth
 
@@ -101,7 +103,12 @@ class Mapper(object):
                 continue
             url, options = res
             for action in options['actions']:
-                getattr(message, action)()
+                try:
+                    getattr(message, action)()
+                except:
+                    mail_admins('MAILPOST:Exception while processing action',\
+                        "Action: %s, Message: %s. PLEASE, PROCEED WITH THIS EMAIL MANUALLY" % (action, message),
+                        fail_silently=True)
             files = []
             if options['send_files']:
                 for num, attachment in enumerate(message.attachments):
