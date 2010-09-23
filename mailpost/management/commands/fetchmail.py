@@ -11,6 +11,8 @@ from django.conf import settings
 from django.core.mail import mail_admins
 
 from mailpost.handler import Handler
+LOCK_FILE_MAIL_ADMIN_CONSECUTIVE_NUMBER = \
+    getattr(settings, "LOCK_FILE_MAIL_ADMIN_CONSECUTIVE_NUMBER", 3)
 
 class Command(BaseCommand):
 
@@ -24,7 +26,7 @@ class Command(BaseCommand):
                 datetime.datetime.fromtimestamp(statinfo.st_ctime)
             duration = datetime.datetime.now() - last_file_lock_time
             if duration > datetime.timedelta(minutes = \
-                10 * settings.LOCK_FILE_MAIL_ADMIN_CONSECUTIVE_NUMBER):
+                10 * LOCK_FILE_MAIL_ADMIN_CONSECUTIVE_NUMBER):
                 print "Lock file found! Cannot run another process."
                 print "If you believe this is a mistake," + \
                       " please delete '%s' file manually" % \
@@ -34,7 +36,7 @@ class Command(BaseCommand):
                             "If you believe this is a mistake," + \
                             " please delete '%s' file manually" % \
                             os.path.normpath(settings.LOCK_FILENAME),
-                            fail_silently=True)
+                            fail_silently = True)
             return False
 
         handler = Handler(config_file=settings.MAILPOST_CONFIG_FILE)
